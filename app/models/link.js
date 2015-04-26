@@ -1,7 +1,7 @@
 var crypto = require('crypto');
 var mongoose = require('mongoose');
 
-var LinkSchema = new mongoose.Schema({
+var LinkSchema = mongoose.Schema({
   visits: Number,
   link: String,
   title: String,
@@ -9,6 +9,8 @@ var LinkSchema = new mongoose.Schema({
   base_url: String,
   url: String
 });
+
+var Link = mongoose.model('Link', LinkSchema);
 
 var createSha = function (url) {
   var shasum = crypto.createHash('sha1');
@@ -22,7 +24,7 @@ LinkSchema.pre('save', function (next){
   next();
 });
 
-module.exports = mongoose.model('Link', LinkSchema);
+module.exports = Link;
 
 
 
